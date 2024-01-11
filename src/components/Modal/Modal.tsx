@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { PokemonSelect } from "../../pages/Main";
-import axios from 'axios';
+import axios from "axios";
+import { PokemonInfo, PokemonSelect } from "../../types/PokemonTypes";
 
 interface Props {
   trainerName: string;
@@ -8,18 +8,12 @@ interface Props {
   onClose: () => void;
 }
 
-interface PokemonInfo {
-  name: string;
-  sprites: {
-    front_default: string;
-    back_default: string;
-  };
-}
-
-export const Modal: React.FC<Props> = ({ onClose, trainerName, selectedOption }) => {
+export const Modal: React.FC<Props> = ({
+  onClose,
+  trainerName,
+  selectedOption,
+}) => {
   const [pokemonData, setPokemonData] = useState<PokemonInfo[]>([]);
-
-  console.log(pokemonData);
 
   const handleCloseModal = () => {
     onClose();
@@ -38,7 +32,7 @@ export const Modal: React.FC<Props> = ({ onClose, trainerName, selectedOption })
 
             return {
               name: value,
-              sprites: response.data.sprites,
+              ability: response.data,
             };
           })
         );
@@ -67,7 +61,7 @@ export const Modal: React.FC<Props> = ({ onClose, trainerName, selectedOption })
             <button
               onClick={handleCloseModal}
               type="button"
-              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-3 h-3 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
               data-modal-hide="default-modal"
             >
               <svg
@@ -90,28 +84,53 @@ export const Modal: React.FC<Props> = ({ onClose, trainerName, selectedOption })
           </div>
 
           <div className="p-4 md:p-5 space-y-4">
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              Your Pokémon trainer name is: {trainerName}
+            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-600">
+              Your Pokémon trainer name is: <b>{trainerName}</b>
             </p>
 
-            <div className="flex flex-col space-y-4">
+            <div className="flex-col space-y-4">
               {pokemonData.map((value, index) => (
-                <div key={index} className="flex">
+                <div key={index} className="flex border dark:border-black-700">
                   <img
-                    src={value.sprites.front_default}
+                    src={value.ability.sprites.front_default}
                     alt={`Pokemon sprite ${index}`}
-                    className="w-32 h-32 object-cover"
+                    className="w-28 h-28 object-cover border dark:border-black-700 m-1"
                   />
 
                   <img
-                    src={value.sprites.back_default}
+                    src={value.ability.sprites.back_default}
                     alt={`Pokemon sprite ${index}`}
-                    className="w-32 h-32 object-cover"
+                    className="w-28 h-28 object-cover border dark:border-black-700 m-1"
                   />
 
-                  <h1 className="flex justify-center items-center mx-auto text-white uppercase">
-                    {value.name}
-                  </h1>
+                  <div className="flex-col justify-start items-start ml-10 w-full">
+                    <h1 className="text-black mt-1">
+                      Name:{" "}
+                      <b className="uppercase text-gray-600">{value.name}</b>
+                    </h1>
+
+                    <div className="flex mt-2">
+                      <div className="mr-16">
+                        <p>
+                          Exp: <b>{value.ability.base_experience}</b>
+                        </p>
+                        <p>
+                          Hp: <b>{value.ability.stats[0].base_stat}</b>
+                        </p>
+                      </div>
+                      <div>
+                        <p>
+                          Attack: <b>{value.ability.stats[1].base_stat}</b>
+                        </p>
+                        <p>
+                          Defense: <b>{value.ability.stats[2].base_stat}</b>
+                        </p>
+                        <p>
+                          Speed: <b>{value.ability.stats[3].base_stat}</b>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
