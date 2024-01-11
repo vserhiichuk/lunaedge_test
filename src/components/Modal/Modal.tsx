@@ -5,11 +5,15 @@ import { PokemonInfo, PokemonSelect } from "../../types/PokemonTypes";
 interface Props {
   trainerName: string;
   selectedOption: PokemonSelect[];
+  setShowForm: (value: boolean) => void;
+  onSave: (pokemonData: PokemonInfo[]) => void;
   onClose: () => void;
 }
 
 export const Modal: React.FC<Props> = ({
   onClose,
+  onSave,
+  setShowForm,
   trainerName,
   selectedOption,
 }) => {
@@ -17,6 +21,11 @@ export const Modal: React.FC<Props> = ({
 
   const handleCloseModal = () => {
     onClose();
+  };
+
+  const handleSave = () => {
+    onSave(pokemonData);
+    setShowForm(true);
   };
 
   useEffect(() => {
@@ -61,7 +70,7 @@ export const Modal: React.FC<Props> = ({
             <button
               onClick={handleCloseModal}
               type="button"
-              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-3 h-3 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-6 h-6 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
               data-modal-hide="default-modal"
             >
               <svg
@@ -133,6 +142,15 @@ export const Modal: React.FC<Props> = ({
                   </div>
                 </div>
               ))}
+            </div>
+            <div className="flex justify-end">
+              <button
+                onClick={handleSave}
+                type="button"
+                className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 w-32"
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>
