@@ -3,13 +3,11 @@ import { PokemonInfo } from "../../types/PokemonTypes";
 
 interface Props {
   savedPokemon: PokemonInfo[];
-  onReset: () => void;
   trainerName: string;
+  onReset: () => void;
 }
 
 export const SavedPokemons: React.FC<Props> = ({ savedPokemon, trainerName, onReset }) => {
-  console.log(savedPokemon);
-
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="flex-col justify-center shadow items-center p-5 border dark:border-black-700">
@@ -34,9 +32,9 @@ export const SavedPokemons: React.FC<Props> = ({ savedPokemon, trainerName, onRe
             >
               <div>
                 <img
-                  className="rounded-t-lg mx-auto h-52 m-2"
                   src={pokemon.ability.sprites.other.dream_world.front_default}
-                  alt=""
+                  className="rounded-t-lg mx-auto h-52 m-2"
+                  alt="Pokemon image"
                 />
               </div>
 

@@ -12,14 +12,19 @@ export interface PokemonInfo {
   name: string;
   ability: {
     base_experience: number;
-    stats: Characteristics[]
+    stats: Characteristics[];
     sprites: {
       front_default: string;
       back_default: string;
+      other: {
+        dream_world: {
+          front_default: string;
+        };
+      };
     };
   };
 }
 
 interface Characteristics {
-  base_stat: number
+  base_stat: number;
 }

@@ -65,7 +65,7 @@ export const Modal: React.FC<Props> = ({
         <div className="relative bg-white rounded-lg shadow white:bg-gray-700 border dark:border-black-700">
           <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-300">
             <h3 className="text-xl font-semibold text-gray-600 dark:text-black-600">
-              YOUR TEAM
+              YOUR TEAm
             </h3>
             <button
               onClick={handleCloseModal}

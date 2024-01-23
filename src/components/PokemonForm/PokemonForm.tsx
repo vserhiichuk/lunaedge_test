@@ -26,7 +26,6 @@ export const PokemonForm: React.FC<Props> = ({
   } = useForm<FormData>();
 
   const handleChangeOption = (newValue: MultiValue<PokemonSelect>) => {
-    console.log(newValue);
     if (newValue.length <= 4) {
       setSelectedOption([...newValue]);
     } else {
@@ -39,7 +38,7 @@ export const PokemonForm: React.FC<Props> = ({
       onSubmit={handleSubmit(onSubmit)}
       className="flex items-center justify-center h-screen"
     >
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-96 mx-96 h-auto">
+      <div className="bg-white shadow rounded px-8 pt-6 pb-8 mb-4 max-w-96 mx-96 h-auto">
         <h1 className="mb-4">Team Pokémon</h1>
 
         <div className="mb-4">
